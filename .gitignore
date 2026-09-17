@@ -1,0 +1,19 @@
+# secrets
+.env
+.env.*
+!.env.example
+**/.env
+# deps & junk
+node_modules/
+.DS_Store
+*.log
+.vite/
+dist/
+
+# key material
+*.pem
+*.p12
+*.key
+serviceAccount*.json
+credentials.json
+requests.rest
