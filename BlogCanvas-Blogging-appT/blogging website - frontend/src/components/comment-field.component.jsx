@@ -3,6 +3,7 @@ import { UserContext } from '../App';
 import { Toaster, toast } from 'react-hot-toast';
 import axios from 'axios';
 import { BlogContext } from '../pages/blog.page';
+import { apiUrl } from "../common/server-url"
 
 const CommentField = ({ action, index = undefined, replyingTo = undefined, setIsReplying }) => {
     const [comment, setComment] = useState("");
@@ -19,7 +20,7 @@ const CommentField = ({ action, index = undefined, replyingTo = undefined, setIs
             return toast.error("Write something to comment...");
         }
 
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/add-comment", {
+        axios.post(apiUrl("/add-comment"), {
             _id,
             blog_author,
             comment, replying_to: replyingTo

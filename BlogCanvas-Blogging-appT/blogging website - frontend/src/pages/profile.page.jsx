@@ -14,6 +14,7 @@ import PageNotFound from './404.page'
 import MediumCard from '../medium_article/mediumcard.component'
 import AddMediumUsername from '../components/add-medium-username.component'
 import { Toaster, toast } from 'react-hot-toast'
+import { apiUrl } from "../common/server-url"
 
 export const profileDataStructure = {
     personal_info: {
@@ -51,7 +52,7 @@ const ProfilePage = () => {
 
     const getBlogs = ({ page = 1, user_id }) => {
         user_id = user_id == undefined ? blogs.user_id : user_id;
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blogs", {
+        axios.post(apiUrl("/search-blogs"), {
             author: user_id,
             page
         })
@@ -72,7 +73,7 @@ const ProfilePage = () => {
 
 
     const fetchUserProfile = () => {
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-profile", {
+        axios.post(apiUrl("/get-profile"), {
             username: profileId
         })
             .then(({ data: user }) => {
@@ -98,7 +99,7 @@ const ProfilePage = () => {
             }
             let loadingToast = toast.loading("Adding...");
             e.target.classList.add('disable');
-            axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/add-medium-username", { uname }, {
+            axios.post(apiUrl("/add-medium-username"), { uname }, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 }
@@ -122,12 +123,12 @@ const ProfilePage = () => {
     }
 
     const fetchMediumBlogs = () => {
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/check-medium-username", {
+        axios.post(apiUrl("/check-medium-username"), {
             username: profileId
         })
             .then(({ data: { isMediumUsernameSet } }) => {
                 if (isMediumUsernameSet) {
-                    axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/fetch-medium-username", {
+                    axios.post(apiUrl("/fetch-medium-username"), {
                         username: profileId
                     })
                         .then(({ data: { mediumUsername } }) => {

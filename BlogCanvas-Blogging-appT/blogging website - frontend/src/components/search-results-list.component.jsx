@@ -3,12 +3,13 @@ import AnimationWrapper from '../common/page-animation';
 import NoDataMessage from './nodata.component';
 import { toast } from 'react-hot-toast'
 import axios from 'axios';
+import { apiUrl } from "../common/server-url"
 
 const SearchResultsList = ({ results, listId }) => {
 
     const handleAddUser = (userId, listId) => {
         let loadingToast = toast.loading("Adding User...");
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/add-user-to-list", { listId, userId })
+        axios.post(apiUrl("/add-user-to-list"), { listId, userId })
             .then(({response}) => {
                 console.log(response)
                 toast.dismiss(loadingToast);

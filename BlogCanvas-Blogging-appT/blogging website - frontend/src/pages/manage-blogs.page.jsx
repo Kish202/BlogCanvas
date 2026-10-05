@@ -10,6 +10,7 @@ import AnimationWrapper from '../common/page-animation';
 import {ManagePublishedBlogsCard,ManageDraftBlogPost} from '../components/manage-blogcard.component';
 import LoadMoreDataBtn from '../components/load-more.component';
 import { useSearchParams } from 'react-router-dom';
+import { apiUrl } from "../common/server-url"
 
 
 const ManageBlogs = () => {
@@ -22,7 +23,7 @@ const ManageBlogs = () => {
 
     let activeTab=useSearchParams()[0].get("tab");
     const getBlogs = ({ page, draft, deletedDocCount = 0 }) => {
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/user-written-blogs", {
+        axios.post(apiUrl("/user-written-blogs"), {
             page, draft, query, deletedDocCount
         }, {
             headers: {

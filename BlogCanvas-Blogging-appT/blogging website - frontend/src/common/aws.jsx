@@ -1,8 +1,9 @@
 import axios from "axios";
+import { apiUrl } from "./server-url"
 
 export const uploadImage = async (img) => {
     let imgUrl = null;
-    await axios.get(import.meta.env.VITE_SERVER_DOMAIN + "/get-upload-url")
+    await axios.get(apiUrl("/get-upload-url"))
         .then(async ({ data: { uploadURL } }) => {
 
            await axios({

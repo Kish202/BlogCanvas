@@ -13,6 +13,7 @@ import ListOwner from '../components/list-owner.component'
 import { Avatar } from 'antd';
 import { Toaster, toast } from 'react-hot-toast'
 import SharedUser from '../components/shared-users.component'
+import { apiUrl } from "../common/server-url"
 
 export const profileDataStructure = {
 
@@ -44,7 +45,7 @@ const ListBlogs = () => {
     let { userAuth: { username } } = useContext(UserContext);
 
     const fetchList = () => {
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/list/blogs", {
+        axios.post(apiUrl("/list/blogs"), {
             listId
         })
             .then(({ data: { list } }) => {
@@ -61,7 +62,7 @@ const ListBlogs = () => {
 
     const handleRemoveUser = (username, listId) => {
         let loadingToast = toast.loading("Removing...");
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/list/remove-shared-user-from-list", {
+        axios.post(apiUrl("/list/remove-shared-user-from-list"), {
             listId,
             username
         })

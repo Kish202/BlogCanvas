@@ -11,6 +11,7 @@ import LoadMoreDataBtn from '../components/load-more.component';
 import { useSearchParams } from 'react-router-dom';
 import ManageBookmarkedBlogCard from '../components/manage-bookmarkedblogcard.component';
 import ListCard from '../components/list-card.component';
+import { apiUrl } from "../common/server-url"
 
 
 const Library = () => {
@@ -23,7 +24,7 @@ const Library = () => {
     let activeTab = useSearchParams()[0].get("tab");
 
     const getBlogs = ({ page }) => {
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/bookmarked-blogs", {
+        axios.post(apiUrl("/bookmarked-blogs"), {
             page, query
         }, {
             headers: {
@@ -70,7 +71,7 @@ const Library = () => {
                 getBlogs({ page: 1 })
             }
 
-            axios.get(import.meta.env.VITE_SERVER_DOMAIN + "/all-lists", {
+            axios.get(apiUrl("/all-lists"), {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 }
@@ -81,7 +82,7 @@ const Library = () => {
                 .catch(err => {
                     console.log(err)
                 })
-            axios.get(import.meta.env.VITE_SERVER_DOMAIN + "/shared-lists", {
+            axios.get(apiUrl("/shared-lists"), {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 }

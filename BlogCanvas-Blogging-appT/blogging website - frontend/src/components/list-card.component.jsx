@@ -8,6 +8,7 @@ import axios from 'axios';
 import Loader from './loader.component';
 import AnimationWrapper from '../common/page-animation';
 import NoDataMessage from './nodata.component';
+import { apiUrl } from "../common/server-url"
 
 const ListCard = ({ list, isSharedList = true }) => {
     const [open, setOpen] = useState(false);
@@ -23,7 +24,7 @@ const ListCard = ({ list, isSharedList = true }) => {
     };
 
     const fetchSharedUsers = (listId) => {
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/lists/shared-users", { listId })
+        axios.post(apiUrl("/lists/shared-users"), { listId })
             .then(({ data: { sharedUsers } }) => {
                 setSharedUsers(sharedUsers)
             })

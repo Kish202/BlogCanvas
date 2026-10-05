@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState,useContext } from 'react'
 import { UserContext } from '../App';
+import { apiUrl } from "../common/server-url"
 
 const SearchBarDrawer = ({ setResults }) => {
 
@@ -8,7 +9,7 @@ const SearchBarDrawer = ({ setResults }) => {
     let { userAuth: { access_token } } = useContext(UserContext);
 
     const fetchData = (value) => {
-        axios.get(import.meta.env.VITE_SERVER_DOMAIN + "/all-users",{
+        axios.get(apiUrl("/all-users"),{
             headers: {
                 'Authorization': `Bearer ${access_token}`
             }

@@ -13,6 +13,7 @@ import { FloatButton } from 'antd';
 import CommentsContainer, { fetchComments } from '../components/comments.component'
 import RemixLab from '../components/remix-lab.component'
 import { InkCanvas } from '../components/ink-marks.component'
+import { apiUrl } from "../common/server-url"
 
 export const blogStructure = {
     title: '',
@@ -46,7 +47,7 @@ const BlogPage = () => {
     let { title, content, banner, author: { personal_info: { fullname, username: author_username, profile_img } }, publishedAt } = blog;
 
     const fetchBlog = () => {
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-blog", {
+        axios.post(apiUrl("/get-blog"), {
             blog_id
         })
             .then(async ({ data: { blog } }) => {
@@ -55,7 +56,7 @@ const BlogPage = () => {
                 })
  
                 setBlog(blog);
-                axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/ink-marks", { blog_id }, {
+                axios.post(apiUrl("/ink-marks"), { blog_id }, {
                     headers: access_token ? { Authorization: `Bearer ${access_token}` } : {}
                 })
                     .then(({ data }) => {
@@ -64,7 +65,7 @@ const BlogPage = () => {
                     })
                     .catch(() => {})
 
-                axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blogs", { tag: blog.tags[0], limit: 6, eliminate_blog: blog_id })
+                axios.post(apiUrl("/search-blogs"), { tag: blog.tags[0], limit: 6, eliminate_blog: blog_id })
                     .then(({ data }) => {
                         setSimilarBlog(data.blogs)
                     })

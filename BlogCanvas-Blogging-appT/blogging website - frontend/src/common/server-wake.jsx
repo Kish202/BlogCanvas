@@ -1,4 +1,5 @@
 import axios from "axios";
+import { apiUrl } from "./server-url"
 
 const SLEEP_AFTER_MS = 1200;
 let pending = 0;
@@ -62,7 +63,7 @@ export const watchServerSleep = () => {
     );
 
     const ping = () =>
-        axios.get(import.meta.env.VITE_SERVER_DOMAIN + "/trending-blogs", {
+        axios.get(apiUrl("/trending-blogs"), {
             timeout: 50000,
             skipWakeWatch: true
         });

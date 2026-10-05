@@ -8,6 +8,7 @@ import axios from "axios";
 import ShareButton from '../components/share.component'
 import BookmarkBox from './bookmarkbox.component';
 import { InkPalette } from './ink-marks.component';
+import { apiUrl } from "../common/server-url"
 const BlogInteraction = () => {
     
     let { blog, blog: { _id, title, blog_id, activity, activity: { total_likes, total_comments }, author: {
@@ -21,7 +22,7 @@ const BlogInteraction = () => {
 
     useEffect(() => {
         if (access_token) {
-            axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/isliked-by-user", { _id }, {
+            axios.post(apiUrl("/isliked-by-user"), { _id }, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 }
@@ -38,7 +39,7 @@ const BlogInteraction = () => {
     useEffect(() => {
 
         if (access_token) {
-            axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/is-bookmarked-by-user", { _id }, {
+            axios.post(apiUrl("/is-bookmarked-by-user"), { _id }, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 }
@@ -61,7 +62,7 @@ const BlogInteraction = () => {
 
             setBlog({ ...blog, activity: { ...activity, total_likes } })
 
-            axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/like-blog", { _id, islikedByUser }, {
+            axios.post(apiUrl("/like-blog"), { _id, islikedByUser }, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 }

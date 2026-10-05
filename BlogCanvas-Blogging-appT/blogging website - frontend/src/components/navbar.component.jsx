@@ -6,6 +6,7 @@ import { ThemeContext, UserContext } from "../App";
 import UserNavigationPanel from "./user-navigation.component";
 import axios from "axios";
 import { storeInSession } from "../common/session";
+import { apiUrl } from "../common/server-url"
 
 const Navbar = () => {
     const [searchBoxVisibility, setSearchBoxVisibility] = useState(false)
@@ -28,7 +29,7 @@ const Navbar = () => {
 
     useEffect(() => {
         if (access_token) {
-            axios.get(import.meta.env.VITE_SERVER_DOMAIN + "/new-notification", {
+            axios.get(apiUrl("/new-notification"), {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 }

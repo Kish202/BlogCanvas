@@ -7,6 +7,7 @@ import Loader from './loader.component';
 import AnimationWrapper from '../common/page-animation';
 import NoDataMessage from './nodata.component';
 import { BlogContext } from '../pages/blog.page'
+import { apiUrl } from "../common/server-url"
 
 const listStructure = {
     name: '',
@@ -54,7 +55,7 @@ const BookmarkBox = ({ _id, access_token }) => {
         console.log(list)
         let loadingToast = toast.loading("Creating...");
         e.target.classList.add('disable');
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/create-list", { ...list }, {
+        axios.post(apiUrl("/create-list"), { ...list }, {
             headers: {
                 'Authorization': `Bearer ${access_token}`
             }
@@ -81,7 +82,7 @@ const BookmarkBox = ({ _id, access_token }) => {
             setList({ ...list, visibility: 'private' })
         }
         if (access_token) {
-            axios.get(import.meta.env.VITE_SERVER_DOMAIN + "/all-lists", {
+            axios.get(apiUrl("/all-lists"), {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 }
@@ -101,7 +102,7 @@ const BookmarkBox = ({ _id, access_token }) => {
             setIsBookmarked(preVal => !preVal);
             console.log(isBookmarked)
 
-            axios.put(import.meta.env.VITE_SERVER_DOMAIN + "/bookmark", { _id }, {
+            axios.put(apiUrl("/bookmark"), { _id }, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 }

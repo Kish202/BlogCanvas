@@ -4,6 +4,7 @@ import { getDay } from '../common/date';
 import NotificationCommentField from './notification-comment-field.component';
 import { UserContext } from '../App';
 import axios from 'axios';
+import { apiUrl } from "../common/server-url"
 
 const NotificationCard = ({ data, index, notificationState }) => {
     let { seen,type, reply, createdAt, comment, replied_on_comment, user, user: { personal_info: { fullname, username, profile_img } }, blog: { _id, blog_id, title }, _id: notification_id } = data;
@@ -19,7 +20,7 @@ const NotificationCard = ({ data, index, notificationState }) => {
 
     const handleDelete = (comment_id, type, target) => {
         target.setAttribute('disabled', true);
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + '/delete-comment', { _id: comment_id }, {
+        axios.post(apiUrl('/delete-comment'), { _id: comment_id }, {
             headers: {
                 'Authorization': `Bearer ${access_token}`
             }

@@ -4,6 +4,7 @@ import InputBox from '../components/input.component'
 import axios from "axios"
 import { Toaster, toast } from 'react-hot-toast'
 import { UserContext } from '../App'
+import { apiUrl } from "../common/server-url"
 const ChangePassword = () => {
 
     let {userAuth:{access_token}}=useContext(UserContext);
@@ -36,7 +37,7 @@ const ChangePassword = () => {
         e.target.setAttribute("disabled", true);
 
         let loadingToast = toast.loading("Updating...");
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/change-password", formData, {
+        axios.post(apiUrl("/change-password"), formData, {
             headers: {
                 'Authorization': `Bearer ${access_token}`
             }

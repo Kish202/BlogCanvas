@@ -6,12 +6,13 @@ import axios from 'axios';
 import NoDataMessage from './nodata.component';
 import AnimationWrapper from '../common/page-animation';
 import CommentCard from './comment-card.component';
+import { apiUrl } from "../common/server-url"
 
 
 export const fetchComments = async ({ skip = 0, blog_id, setParentCommentCountFun, comment_array = null }) => {
     try {
         let res;
-        const { data } = await axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-blog-comments", {
+        const { data } = await axios.post(apiUrl("/get-blog-comments"), {
             blog_id,
             skip
         });

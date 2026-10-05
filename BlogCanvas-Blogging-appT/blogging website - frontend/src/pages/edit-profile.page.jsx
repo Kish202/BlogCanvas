@@ -8,6 +8,7 @@ import { Toaster, toast } from 'react-hot-toast'
 import InputBox from '../components/input.component';
 import { uploadImage } from '../common/aws';
 import { storeInSession } from '../common/session';
+import { apiUrl } from "../common/server-url"
 
 
 const EditProfile = () => {
@@ -28,7 +29,7 @@ const EditProfile = () => {
     useEffect(() => {
 
         if (access_token) {
-            axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-profile", { username: userAuth.username })
+            axios.post(apiUrl("/get-profile"), { username: userAuth.username })
                 .then(({ data }) => {
                     setProfile(data);
                     // console.log(data)
@@ -57,7 +58,7 @@ const EditProfile = () => {
             uploadImage(updatedProfileImg)
                 .then(url => {
                     if (url) {
-                        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/update-profile-img", { url }, {
+                        axios.post(apiUrl("/update-profile-img"), { url }, {
                             headers: {
                                 'Authorization': `Bearer ${access_token}`
                             }
@@ -109,7 +110,7 @@ const EditProfile = () => {
 
         let loadingToast = toast.loading("Updating...");
         e.target.setAttribute('disabled', true);
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/update-profile", {
+        axios.post(apiUrl("/update-profile"), {
             username, bio, social_links: {
                 youtube,
                 facebook, twitter, github,

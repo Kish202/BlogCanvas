@@ -2,12 +2,13 @@ import axios from 'axios';
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { Toaster, toast } from 'react-hot-toast'
+import { apiUrl } from "../common/server-url"
 
 const LatestListCard = ({ list, access_token, blogId }) => {
     const [checked, setChecked] = useState(false);
     const handleCheckBlogInList = async (listId, blogId) => {
         try {
-            const response = await axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/api/list/conatins-blog", { blogId, listId });
+            const response = await axios.post(apiUrl("/api/list/conatins-blog"), { blogId, listId });
             setChecked(response.data.isBlogInList);
         } catch (error) {
             console.error('Error checking if blog is in list:', error);
@@ -19,7 +20,7 @@ const LatestListCard = ({ list, access_token, blogId }) => {
             console.log(_id, blogId)
             setChecked(preVal => !preVal);
             console.log("added in List")
-            axios.put(import.meta.env.VITE_SERVER_DOMAIN + "/lists/add-blog-in-list", { listId, _id }, {
+            axios.put(apiUrl("/lists/add-blog-in-list"), { listId, _id }, {
                 headers: {
                     'Authorization': `Bearer ${access_token}`
                 }

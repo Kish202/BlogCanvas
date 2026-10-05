@@ -5,6 +5,7 @@ import BlogEditor from '../components/blog-editor.component'
 import PublishForm from '../components/publish-form.component'
 import Loader from '../components/loader.component'
 import axios from 'axios'
+import { apiUrl } from "../common/server-url"
 
 
 const blogStructure = {
@@ -33,7 +34,7 @@ const Editor = () => {
             return setLoading(false);
         }
 
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-blog", {
+        axios.post(apiUrl("/get-blog"), {
             blog_id, draft: true, mode: 'edit'
         })
             .then(({ data: { blog } }) => {

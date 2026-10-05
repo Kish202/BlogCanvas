@@ -8,11 +8,12 @@ import axios from "axios"
 import { storeInSession } from '../common/session'
 import { UserContext } from '../App'
 import { authWithGoogle } from '../common/firebase'
+import { apiUrl } from "../common/server-url"
 const UserAuthForm = ({ type }) => {
 
     let { userAuth: { access_token }, setUserAuth } = useContext(UserContext)
     const userAuthThroughServer = (serverRoute, formData) => {
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + serverRoute, formData)
+        axios.post(apiUrl(serverRoute), formData)
             .then(({ data }) => {
                 storeInSession("user", JSON.stringify(data))
 

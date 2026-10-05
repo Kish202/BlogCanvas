@@ -9,6 +9,7 @@ import axios from 'axios';
 import { filterPaginationData } from '../common/filter-pagination-data';
 import NoDataMessage from '../components/nodata.component';
 import UserCard from '../components/usercard.component';
+import { apiUrl } from "../common/server-url"
 const SearchPage = () => {
     let { query } = useParams();
     let [blogs, setBlog] = useState(null)
@@ -16,7 +17,7 @@ const SearchPage = () => {
 
 
     const SearchBlogs = ({ page = 1, create_new_arr = false }) => {
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blogs", { query, page })
+        axios.post(apiUrl("/search-blogs"), { query, page })
             .then(async ({ data }) => {
                 let formatedData = await filterPaginationData({
                     state: blogs,
@@ -36,7 +37,7 @@ const SearchPage = () => {
     }
 
     const fetchUsers = () => {
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-users", { query })
+        axios.post(apiUrl("/search-users"), { query })
             .then(({ data: { users } }) => {
                 setUsers(users)
             })

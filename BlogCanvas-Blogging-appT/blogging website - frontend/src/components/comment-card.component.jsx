@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import CommentField from './comment-field.component';
 import { BlogContext } from '../pages/blog.page';
 import axios from 'axios';
+import { apiUrl } from "../common/server-url"
 const CommentCard = ({ index, leftVal, commentData }) => {
 
     let { commented_by: { personal_info: { profile_img, fullname, username: commented_by_username } }, commentedAt, comment, _id, children } = commentData;
@@ -68,7 +69,7 @@ const CommentCard = ({ index, leftVal, commentData }) => {
     const deleteComment = (target) => {
         target.setAttribute("disabled", true);
 
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + '/delete-comment', { _id }, {
+        axios.post(apiUrl('/delete-comment'), { _id }, {
             headers: {
                 'Authorization': `Bearer ${access_token}`
             }
@@ -91,7 +92,7 @@ const CommentCard = ({ index, leftVal, commentData }) => {
     const loadReplies = ({ skip = 0 }) => {
         if (children.length) {
             hideReplies();
-            axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-replies", { _id, skip })
+            axios.post(apiUrl("/get-replies"), { _id, skip })
                 .then(({ data: { replies } }) => {
                     commentData.isReplyLoaded = true;
                     for (let i = 0; i < replies.length; i++) {

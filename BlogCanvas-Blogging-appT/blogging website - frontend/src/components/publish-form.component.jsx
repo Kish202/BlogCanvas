@@ -6,6 +6,7 @@ import { UserContext } from '../App';
 import Tag from './tags.component'
 import { useNavigate, useParams } from 'react-router-dom'
 import axios from "axios"
+import { apiUrl } from "../common/server-url"
 const PublishForm = () => {
 
 
@@ -38,7 +39,7 @@ const PublishForm = () => {
     setMusing(true);
     let loadingToast = toast.loading("Muse is reading your draft...");
     try {
-      const { data } = await axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/muse-draft", {
+      const { data } = await axios.post(apiUrl("/muse-draft"), {
         title,
         content,
         focus: "all"
@@ -107,7 +108,7 @@ const PublishForm = () => {
       title, banner, des, content, tags, draft: false
     }
 
-    axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/create-blog", { ...blogObj, id: blog_id }, {
+    axios.post(apiUrl("/create-blog"), { ...blogObj, id: blog_id }, {
       headers: {
         'Authorization': `Bearer ${access_token}`
       }

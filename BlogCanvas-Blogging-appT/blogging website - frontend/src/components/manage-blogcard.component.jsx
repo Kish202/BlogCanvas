@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { getDay } from '../common/date'
 import { UserContext } from '../App'
 import axios from 'axios'
+import { apiUrl } from "../common/server-url"
 
 const BlogStats = ({ stats }) => {
 
@@ -93,7 +94,7 @@ export const ManageDraftBlogPost = ({ blog }) => {
 const deleteBlog = (blog, access_token, target) => {
     let { index, blog_id, setStateFun } = blog;
     target.setAttribute("disabled", true);
-    axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/delete-blog", { blog_id }, {
+    axios.post(apiUrl("/delete-blog"), { blog_id }, {
         headers: {
             'Authorization': `Bearer ${access_token}`
         }

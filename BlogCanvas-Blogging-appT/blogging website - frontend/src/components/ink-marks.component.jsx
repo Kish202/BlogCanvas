@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast";
 import axios from "axios";
 import { BlogContext } from "../pages/blog.page";
 import { UserContext } from "../App";
+import { apiUrl } from "../common/server-url"
 
 export const INK_STAMPS = [
     { id: "ink", label: "Ink", hint: "a real blot" },
@@ -95,7 +96,7 @@ export const InkCanvas = () => {
         const type = placingType;
         setPlacingType(null);
 
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/leave-ink", {
+        axios.post(apiUrl("/leave-ink"), {
             _id: blog._id,
             blog_id: blog.blog_id,
             type,
@@ -164,7 +165,7 @@ export const InkPalette = () => {
         }
 
         if (myInkTypes.includes(type)) {
-            axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/leave-ink", {
+            axios.post(apiUrl("/leave-ink"), {
                 _id: blog._id,
                 blog_id: blog.blog_id,
                 type,

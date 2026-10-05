@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import AnimationWrapper from "../common/page-animation";
+import { apiUrl } from "../common/server-url"
 
 const MODES = [
     { id: "haiku", label: "Haiku", hint: "five / seven / five" },
@@ -37,7 +38,7 @@ const RemixLab = ({ blog_id }) => {
         setRemix("");
 
         try {
-            const { data } = await axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/remix-blog", {
+            const { data } = await axios.post(apiUrl("/remix-blog"), {
                 blog_id,
                 mode
             });
@@ -62,7 +63,7 @@ const RemixLab = ({ blog_id }) => {
         setLoading(true);
 
         try {
-            const { data } = await axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/remix-blog", {
+            const { data } = await axios.post(apiUrl("/remix-blog"), {
                 blog_id,
                 mode: "ask",
                 question: nextQuestion,

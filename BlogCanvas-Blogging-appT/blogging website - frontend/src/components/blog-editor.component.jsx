@@ -12,6 +12,7 @@ import EditorJS from "@editorjs/editorjs"
 import { tools } from "./tools.component"
 import axios from 'axios';
 import { ThemeContext, UserContext } from '../App';
+import { apiUrl } from "../common/server-url"
 const BlogEditor = () => {
     let {theme}=useContext(ThemeContext)
 
@@ -100,7 +101,7 @@ const BlogEditor = () => {
                 let blogObj = {
                     title, banner, des, content, tags, draft: true
                 }
-                axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/create-blog", { ...blogObj, id: blog_id }, {
+                axios.post(apiUrl("/create-blog"), { ...blogObj, id: blog_id }, {
                     headers: {
                         'Authorization': `Bearer ${access_token}`
                     }
@@ -201,7 +202,7 @@ const BlogEditor = () => {
                                 textEditor.save().then(async (data) => {
                                     let loadingToast = toast.loading("Muse is naming this...");
                                     try {
-                                        const { data: muse } = await axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/muse-draft", {
+                                        const { data: muse } = await axios.post(apiUrl("/muse-draft"), {
                                             title,
                                             content: data,
                                             focus: "title"

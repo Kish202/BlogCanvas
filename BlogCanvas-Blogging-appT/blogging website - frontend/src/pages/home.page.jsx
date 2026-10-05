@@ -12,6 +12,7 @@ import NoDataMessage from '../components/nodata.component'
 import { filterPaginationData } from '../common/filter-pagination-data'
 import LoadMoreDataBtn from '../components/load-more.component'
 import { FloatButton } from 'antd';
+import { apiUrl } from "../common/server-url"
 const HomePage = () => {
 
     let [blogs, setBlog] = useState(null);
@@ -22,7 +23,7 @@ const HomePage = () => {
     let categories = ["programming", "react", "nextjs", "web development", "cooking", "artificial intelligence"]
 
     const fetchLatestBlogs = ({ page = 1 }) => {
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/latest-blogs", { page })
+        axios.post(apiUrl("/latest-blogs"), { page })
             .then(async ({ data }) => {
                 let formatedData = await filterPaginationData({
                     state: blogs,
@@ -38,7 +39,7 @@ const HomePage = () => {
     }
 
     const fetchTrendingBlogs = (() => {
-        axios.get(import.meta.env.VITE_SERVER_DOMAIN + "/trending-blogs")
+        axios.get(apiUrl("/trending-blogs"))
             .then(({ data }) => {
                 setTrendingBlog(data.blogs)
             })
@@ -59,7 +60,7 @@ const HomePage = () => {
     }
 
     const fetchBlogsByCategory = ({ page = 1 }) => {
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blogs", { tag: pageState, page })
+        axios.post(apiUrl("/search-blogs"), { tag: pageState, page })
             .then(async ({ data }) => {
                 let formatedData = await filterPaginationData({
                     state: blogs,

@@ -7,6 +7,7 @@ import NoDataMessage from '../components/nodata.component'
 import NotificationCard from '../components/notification-card.component'
 import Loader from '../components/loader.component'
 import LoadMoreDataBtn from '../components/load-more.component'
+import { apiUrl } from "../common/server-url"
 
 const Notifications = () => {
 
@@ -17,7 +18,7 @@ const Notifications = () => {
   let filters = ['all', 'like', 'ink', 'comment', 'reply'];
 
   const fetchNotifications = ({ page, deletedDocCount = 0 }) => {
-    axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/notifications", {
+    axios.post(apiUrl("/notifications"), {
       page, filter, deletedDocCount
     }, {
       headers: {
