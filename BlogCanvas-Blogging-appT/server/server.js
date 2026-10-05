@@ -1473,6 +1473,10 @@ app.post("/delete-blog", verifyJWT, (req, res) => {
         })
 })
 
-app.listen(port, () => {
-    console.log(`Blog Website Backend listening on port ${port}`)
-}) 
+if (!process.env.VERCEL) {
+    app.listen(port, () => {
+        console.log(`Blog Website Backend listening on port ${port}`)
+    })
+}
+
+export default app 
